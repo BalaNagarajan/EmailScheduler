@@ -2,6 +2,7 @@ package com.jcircle.email.batch.scheduling;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jcircle.email.batch.config.AwsConfig;
+import com.jcircle.email.batch.impl.EmailServiceImpl;
 
 @Component("emailScheduler")
 public class EmailScheduler {
@@ -19,6 +21,8 @@ public class EmailScheduler {
 	private AmazonS3 amazonS3;
 	@Value("${aws.main.bucket.folder.name}")
 	private String folderName;
+	@Autowired
+	private EmailServiceImpl emailService;
 
 	public EmailScheduler(AwsConfig awsConfig) {
 		this.amazonS3 = awsConfig.getAWSS3Client();
@@ -49,6 +53,7 @@ public class EmailScheduler {
 		if (summaries.size() >= 20) {
 			// Trigger the email functionality
 			System.out.println("----Size exceeded the total count----" + summaries.size());
+			// emailService.sendSimpleMessage("xyz@jcircle.com", "SAMPLE", "First Email");
 
 		}
 		// summaries.forEach(s -> System.out.println(s.getKey()));
