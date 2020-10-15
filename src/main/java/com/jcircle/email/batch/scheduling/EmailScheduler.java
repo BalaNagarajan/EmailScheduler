@@ -2,6 +2,8 @@ package com.jcircle.email.batch.scheduling;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -53,7 +55,13 @@ public class EmailScheduler {
 		if (summaries.size() >= 20) {
 			// Trigger the email functionality
 			System.out.println("----Size exceeded the total count----" + summaries.size());
-			// emailService.sendSimpleMessage("xyz@jcircle.com", "SAMPLE", "First Email");
+			try {
+				 //emailService.sendSimpleMessage("test@xyz.com", "SAMPLE", "First Email");
+				//emailService.sendHtmlMessage("test@xyz.com", "SAMPLE", "First Email");
+				emailService.sendMessageUsingThymeleafTemplate("test@xyz.com", "My First Thyme Template");
+			} catch (MessagingException exception) {
+				exception.printStackTrace();
+			}
 
 		}
 		// summaries.forEach(s -> System.out.println(s.getKey()));
