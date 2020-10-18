@@ -58,8 +58,8 @@ public class EmailScheduler {
 			try {
 				 //emailService.sendSimpleMessage("test@xyz.com", "SAMPLE", "First Email");
 				//emailService.sendHtmlMessage("test@xyz.com", "SAMPLE", "First Email");
-				emailService.sendMessageUsingThymeleafTemplate("test@xyz.com", "My First Thyme Template");
-			} catch (MessagingException exception) {
+				// emailService.sendMessageUsingThymeleafTemplate("test@xyz.com", "My First Thyme Template");
+			} catch (Exception exception) {
 				exception.printStackTrace();
 			}
 
